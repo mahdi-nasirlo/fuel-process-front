@@ -1,30 +1,37 @@
 "use client"
 
-import {Button, Divider, Form, Layout, Typography} from "antd";
+import {Button, Divider, Form, Layout, Modal, Tag, Typography} from "antd";
 import ThemeRegistry from "@/lib/ThemeRegistry";
 import Dragger from "antd/lib/upload/Dragger";
 import Search from "antd/lib/input/Search";
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import {useRouter} from "next/navigation";
+import {useState} from "react";
 
 function Page() {
 
     const router = useRouter()
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
             <ThemeRegistry>
                 <Layout className="h-[100vh] w-full px-3">
                     <Typography className="text-center mt-3"> اسکن بارکد </Typography>
-                    <div className="w-full h-1/2 flex items-center bg-white drop-shadow-sm rounded mt-2">
-                        <Dragger className="w-full h-full rounded">
-                            <p className="ant-upload-text">فعال سازی دوربین</p>
-                        </Dragger>
-                    </div>
-                    <Divider>
-                        یا
-                    </Divider>
+
                     <div>
                         <Form
                             name="login"
@@ -34,6 +41,14 @@ function Page() {
                             initialValues={{remember: true}}
                             autoComplete="off"
                         >
+                            <div className="w-full h-1/2 flex items-center bg-white drop-shadow-sm rounded mt-2">
+                                <Dragger className="w-full h-full rounded">
+                                    <p className="ant-upload-text">فعال سازی دوربین</p>
+                                </Dragger>
+                            </div>
+                            <Divider>
+                                یا
+                            </Divider>
                             <Form.Item
 
                                 label="کد روی نازل را در اینجا بنویسید"
@@ -48,13 +63,18 @@ function Page() {
                                 />
                             </Form.Item>
                         </Form>
-                        <Button className="w-full" type="primary" size="large" onClick={() => {
-                            router.push("/payCode")
-                        }}>
+                        <Button className="w-full" type="primary" size="large" onClick={showModal}>
                             مرحله بعد
                         </Button>
                     </div>
                 </Layout>
+
+                <Modal title="کد با موفقیت دریافت شد" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <div>
+                        <Tag color="processing">کد: 234354</Tag>
+                    </div>
+                    فراید با موفقیت انجام شد لطفا کد را روی نازل وارد کنید
+                </Modal>
             </ThemeRegistry>
         </>
     );
