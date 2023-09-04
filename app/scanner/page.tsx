@@ -1,7 +1,10 @@
 "use client"
 
-import {Layout, Typography} from "antd";
+import {Divider, Form, Layout, Typography} from "antd";
 import ThemeRegistry from "@/lib/ThemeRegistry";
+import Dragger from "antd/lib/upload/Dragger";
+import Search from "antd/lib/input/Search";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 function Page() {
 
@@ -12,36 +15,38 @@ function Page() {
                 <Layout className="h-[100vh] w-full px-3">
                     <Typography className="text-center mt-3"> اسکن بارکد </Typography>
                     <div className="w-full h-1/2 flex items-center bg-white drop-shadow-sm rounded mt-2">
-                        <Typography style={{color: "#5C6CFC"}} className="w-full text-2xl font-medium text-center">
-                            فعال سازی دوربین
-                        </Typography>
+                        <Dragger className="w-full h-full rounded">
+                            <p className="ant-upload-text">فعال سازی دوربین</p>
+                        </Dragger>
                     </div>
-                    {/*<div>*/}
-                    {/*    <div className="mb-6">*/}
-                    {/*        <span>رمز یکبار مصرف به شماره 09123456789 پیامک شد</span>*/}
-                    {/*    </div>*/}
-                    {/*    <Form*/}
-                    {/*        name="basic"*/}
-                    {/*        labelCol={{span: 8}}*/}
-                    {/*        wrapperCol={{span: 16}}*/}
-                    {/*        style={{maxWidth: 600}}*/}
-                    {/*        initialValues={{remember: true}}*/}
-                    {/*    >*/}
-                    {/*        <Form.Item*/}
-                    {/*            label="رمز ارسال شده"*/}
-                    {/*            name="otpCode"*/}
-                    {/*            rules={[{required: true, message: 'لطفا رمز یکبار مصرف را وارد کنید'}]}*/}
-                    {/*        >*/}
-                    {/*            <Input size="large"/>*/}
-                    {/*        </Form.Item>*/}
+                    <Divider>
+                        یا
+                    </Divider>
+                    <div>
+                        <Form
+                            name="login"
+                            labelCol={{span: 8}}
+                            wrapperCol={{span: 16}}
+                            style={{maxWidth: 600}}
+                            initialValues={{remember: true}}
+                            autoComplete="off"
+                        >
+                            <Form.Item
 
-                    {/*        <Form.Item>*/}
-                    {/*            <Button size="large" className="w-full mt-5" type="primary" htmlType="submit">*/}
-                    {/*                ورود*/}
-                    {/*            </Button>*/}
-                    {/*        </Form.Item>*/}
-                    {/*    </Form>*/}
-                    {/*</div>*/}
+                                label="کد روی نازل را در اینجا بنویسید"
+                                name="mobilNumber"
+                                rules={[{required: true, message: 'کد روی نازل را کنید '}]}
+                            >
+                                <Search
+                                    placeholder="*********"
+                                    allowClear
+                                    enterButton={<ArrowLeftOutlined/>}
+                                    size="large"
+                                />
+                            </Form.Item>
+
+                        </Form>
+                    </div>
                 </Layout>
             </ThemeRegistry>
         </>
